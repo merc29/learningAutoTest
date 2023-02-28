@@ -58,6 +58,32 @@ class CustomerPage {
         return cy.contains('Deposit')
     }
 
+    login_as_any_customer(){
+        cy.visit("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
+        cy.contains('Home').should('be.visible');
+        cy.contains('Customer').should('be.visible');
+        cy.contains('Manager').should('be.visible');
+        cy.title().should('eq', 'XYZ Bank');
+
+
+        cy.contains('Customer').click();
+        cy.contains('Home').should('be.visible');
+        cy.contains('---Your Name---').should('be.visible');
+        cy.title().should('eq', 'XYZ Bank');
+   
+        const num_of_customer = Math.floor(Math.random() * 5) + 1;
+        cy.get('#userSelect').select(num_of_customer)
+
+        cy.contains('Login').should('be.visible');
+        cy.contains('Login').click();
+        cy.contains('Logout').should('be.visible')
+        cy.contains('Home').should('be.visible')
+        cy.contains('Transactions').should('be.visible')
+        cy.contains('Withdrawl').should('be.visible')
+        cy.contains('Deposit').should('be.visible')
+        cy.title().should('eq', 'XYZ Bank')
+    }
+
 
 
 
