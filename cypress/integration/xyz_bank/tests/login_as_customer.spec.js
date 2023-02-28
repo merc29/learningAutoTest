@@ -1,12 +1,18 @@
-
 /// <reference types= "Cypress" />
+import CustomerPage from "../pageObject/loginCustomerPage";
 
+const cp = new CustomerPage();
 
 Cypress.on('uncought:exceptions', () => false);
 it("view pre-customer page", () => {
-    cy.visit("https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login");
-    cy.contains('Home').should('be.visible')
-    cy.contains('Customer').should('be.visible')
-    cy.contains('Manager').should('be.visible')
-    cy.title().should('eq', 'XYZ Bank')
+   cp.start_page();
+   cp.go_to_pre_customer_page();
+   
+   cp.select_random_customer();
+   cp.login_customer();
+   //checking currency
+   cy.get('#accountSelect').select(0)
+   cy.get('.borderM > :nth-child(3)').should('eq', 'Dollar')
+   
+
 })
